@@ -1,0 +1,33 @@
+#' sim_composition
+#' 
+#' Use synthetic offspring to test the accuracy of breed/ancestry calculations among test population
+#' 
+#' @param Y numeric matrix of genotypes from all animals in population
+#' @param X numeric matrix of allele frequencies from reference animals
+#' @param rep integer indicating how many repititions of the simulation to perform
+#' @param par1 list of IDs catagorized by breed/population to be used as "Parent 1" in a simulated
+#'  progeny test
+#' @param par2 list of IDs catagorized by breed/population to be used as "Parent 2" in a simulated
+#'  progeny test. If null, two parents from sim1 will be chosen
+#' @import quadprog
+#' @export
+sim_composition <- function(Y, X, rep = 10000, par1, par2 = NULL) {
+  
+  # If no par2 provided, just re-use par1
+  if (is.null(par2)) {
+    par2 <- par1
+  }
+  
+  # Use replicate to call QP_SimCross rep times
+  sim <- replicate(rep, QP_SimCross(Y, X, par1, par2))
+  return(sim)
+  # Modify to obtain final tabulated results 
+  sim_tab <- data.frame(sapply(sim, names),
+                        matrix(unlist(sim), nrow = rep, ncol = 5, byrow = TRUE))
+  
+  # Format with colnames
+  names(sim_tab) <- c("Cross", "idx", "Breed1.qp",
+                         "Breed2.qp", "XBreed1.qp", "XBreed2.qp",
+                         "ActBreed1", "rr")
+  return(sim_tab)
+}
