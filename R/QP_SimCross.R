@@ -9,13 +9,6 @@
 #  and value is a vector of QPsolve results.
 QP_SimCross <- function(Ymat, Xmat, blist, plist) {
 
-  # First, ensure blist and plist contain breeds of different names
-  names_blist <- names(blist)
-  names_plist <- names(plist)
-  if (unique(c(names_blist, names_plist)) < 2)
-    stop("There must be more than two breeds to choose from")
-  
-  
   # Grab random animals - ensuring they are from different breeds
   #   Obviously, each breed must have a different name.
   repeat {
