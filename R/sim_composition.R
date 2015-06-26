@@ -18,9 +18,18 @@ sim_composition <- function(Y, X, rep = 10000, par1, par2 = NULL) {
     par2 <- par1
   }
   
+  # First, ensure par1 and par2 contain breeds of different names
+  names_par1 <- names(par1)
+  names_par2 <- names(par2)
+  
+  if (length(unique(c(names_par1, names_par2))) < 2)
+    stop("There must be at least two breeds to choose from")
+  
   # Use replicate to call QP_SimCross rep times
   sim <- replicate(rep, QP_SimCross(Y, X, par1, par2))
+  
   return(sim)
+  
   # Modify to obtain final tabulated results 
   sim_tab <- data.frame(sapply(sim, names),
                         matrix(unlist(sim), nrow = rep, ncol = 5, byrow = TRUE))
