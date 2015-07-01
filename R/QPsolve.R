@@ -1,18 +1,19 @@
 # Performs whole genome breed composition prediction.
 # 
-# @param Y numeric matrix of genotypes from all animals in population
+# @param Y numeric vector of genotypes (with names as SNPs) from all animals in population
+#   coded as half the dosage of allele B {0, 0.5, 1}
 # @param X numeric matrix of allele frequencies from reference animals
 # @param p numeric indicating number of breeds represented in X
 # @param names character names of breeds
 # @return data.frame of breed composition estimates
 # @import quadprog
+# @export
 QPsolve <- function(Y, X, p = 4, names = c("Duroc", "Hampshire", "Landrace", "Yorkshire")) {
   
   # Remove NAs from Y and remove corresponding
   #   SNPs from X. Ensure Y is numeric
   Ymod <- Y[!is.na(Y)]
   Xmod <- X[names(Ymod), ]
-  Ymod <- as.numeric(Ymod)
   
   # perfom steps needed to solve OLS by framing
   # as a QP problem
