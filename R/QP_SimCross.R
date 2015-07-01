@@ -26,6 +26,7 @@ QP_SimCross <- function(Ymat, Xmat, blist, plist) {
   # Sample random animals from each breed - obtain ID and genotype
   name1 <- sample(breeds[1][[1]], 1)
   name2 <- sample(breeds[2][[1]], 1)
+  
   gen1 <- Ymat[, name1]
   gen2 <- Ymat[, name2]
   
@@ -50,16 +51,24 @@ QP_SimCross <- function(Ymat, Xmat, blist, plist) {
     j <- k
   }
   
-  # solve genn with QP and store in a list with actual genome composition (compos)
+  # Solve composition for both original and synthetic genotypes
   qpnew <- QPsolve(genn, Xmat)
   qp1 <- QPsolve(gen1, Xmat)
   qp2 <- QPsolve(gen2, Xmat)
+  
+  # Compute the actual composition (of breed1) of the synthetic genotype 
   compos <- sum((posc[-1] - posc[-length(posc)])[seq(1, (length(posc) - 1), 2)]) / length(gen1)
+  
+  # Assemble results - index1, compos of par1, compos of par2, compos (breed1) of synthetic,
+  #   compos (breed2) of synthetic, actual compos (breed1) of synthetic, R2
   result <- c(idx1[1], qp1[names(breeds)[1]], qp2[names(breeds)[2]], qpnew[names(breeds)[1]],
-              compos, qpnew["R2"])
+              qpnew[names(breeds)[2]], compos, qpnew["R2"])
+  
+  # Reset names, shape into list, and name the list
   names(result) <- NULL
   result <- list(result)
   names(result) <- paste(names(breeds)[1], ".", name1, "/", names(breeds)[2], ".", name2, sep='')
+  
   return(result)
 }
 
