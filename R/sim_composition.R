@@ -28,15 +28,13 @@ sim_composition <- function(Y, X, rep = 10000, par1, par2 = NULL) {
   # Use replicate to call QP_SimCross rep times
   sim <- replicate(rep, QP_SimCross(Y, X, par1, par2))
   
-  return(sim)
-  
   # Modify to obtain final tabulated results 
-  sim_tab <- data.frame(sapply(sim, names),
-                        matrix(unlist(sim), nrow = rep, ncol = 5, byrow = TRUE))
+  sim_tab <- do.call(rbind, sim)
   
-  # Format with colnames
-  names(sim_tab) <- c("Cross", "idx", "Breed1.qp",
+  # Format with appropriate colnames
+  colnames(sim_tab) <- c("idx", "Breed1.qp",
                          "Breed2.qp", "XBreed1.qp", "XBreed2.qp",
                          "ActBreed1", "rr")
+  
   return(sim_tab)
 }
