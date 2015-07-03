@@ -1,7 +1,7 @@
 # Performs whole genome breed composition prediction.
 # 
-# @param Y numeric vector of genotypes (with names as SNPs) from all animals in population
-#   coded as half the dosage of allele B {0, 0.5, 1}
+# @param Y numeric vector of genotypes (with names as SNPs) from a single animal.
+#   coded as dosage of allele B {0, 1, 2}
 # @param X numeric matrix of allele frequencies from reference animals
 # @param p numeric indicating number of breeds represented in X
 # @param names character names of breeds
