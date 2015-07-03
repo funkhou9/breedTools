@@ -13,6 +13,9 @@
 #' @export
 sim_composition <- function(Y, X, rep = 10000, par1, par2 = NULL) {
   
+  # Functions require Y to be animals x snps. Transpose
+  Y <- t(Y)
+  
   # If no par2 provided, just re-use par1
   if (is.null(par2)) {
     par2 <- par1
