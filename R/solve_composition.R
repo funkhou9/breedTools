@@ -24,6 +24,9 @@ solve_composition <- function(Y, X, names, ped = NULL, groups = NULL) {
   # Functions require Y to be animals x snps. Transpose
   Y <- t(Y)
   
+  # SNPs in Y should only be the ones present in X
+  Y <- Y[rownames(Y) %in% rownames(X), ]
+  
   # If ped is supplied, use QPsolve_par to compute genomic composition using
   #   only animals who have genotyped parents (by incorporating Sire genotype).
   if (!is.null(ped)) {
