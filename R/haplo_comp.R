@@ -7,7 +7,10 @@
 #' @param y A data.frame that contains haplotypes for individuals
 #' (rows) of a population, for a number of SNPs (columns). Haplotypes coded
 #' 0 or 1 as type character.
-#' @return Haplotype frequencies
+#' @param haplotypes boolean. If true, return haplotype frequencies of population x.
+#'  If false, return breed probability matrix (posterior probabilities for each breed,
+#'  rows, to have particular genotype, columns)
+#' @return Either haplotype frequencies or breed probability matrix
 # ---------------------------------------------
 haplo_comp <-  function(x, y = NULL, haplotypes = FALSE) {
   
