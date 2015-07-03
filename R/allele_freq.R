@@ -1,12 +1,12 @@
-# Computes allele frequencies for specified populations given SNP array data
-#
-# @param geno matrix of genotypes coded as the dosage of allele B {0, 1, 2}
-#   with individuals in rows (named) and SNPs in columns (named)
-# @param populations list of named populations. Each population has a vector of IDs
-#   that belong to the population. Allele frequencies will be derived from all animals
-#   
-# @return data.frame consisting of allele_frequencies for populations (columns) for
-#   each SNP (rows)
+#' Computes allele frequencies for specified populations given SNP array data
+#'
+#' @param geno matrix of genotypes coded as the dosage of allele B {0, 1, 2}
+#'  with individuals in rows (named) and SNPs in columns (named)
+#' @param populations list of named populations. Each population has a vector of IDs
+#'  that belong to the population. Allele frequencies will be derived from all animals
+#'   
+#' @return data.frame consisting of allele_frequencies for populations (columns) for
+#'  each SNP (rows)
 #' @export
 allele_freq <- function(geno, populations) {
   
