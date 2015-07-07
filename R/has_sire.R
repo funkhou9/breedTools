@@ -35,6 +35,5 @@ has_sire <- function(id, ped, geno = NULL) {
   # If no sire in pedigree   
   } else return(FALSE)
 }
-      
 
-      
+
