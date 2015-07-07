@@ -8,8 +8,8 @@
 # @param missing character used to represent missing values
 # @return character {0, 0.5, 1, "?", NA} representing maternally
 #		inherited allele. "?" indicates maternal inconsistancy.
-#		0.5 indicates either 0 or 1 OR 1 or 2. NA indicates
-#		either 0, 1 or 2.
+#		0.5 indicates a maternally inherited allele of either 0 or 1.
+#   NA if the progeny genotype is missing.
 mat_allele <- function(geno, sire_geno, missing = '-') {
   
   # Two possibilities for maternal allele if sire_geno
@@ -22,7 +22,7 @@ mat_allele <- function(geno, sire_geno, missing = '-') {
     if (geno == 2)
       mat_allele <- '?'
     if (geno == missing)
-      mat_allele <- 0.5
+      mat_allele <- NA
   }
   
   # Three possibilities for maternal allele if sire_geno
@@ -35,7 +35,7 @@ mat_allele <- function(geno, sire_geno, missing = '-') {
     if (geno == 2)
       mat_allele <- 1
     if (geno == missing)
-      mat_allele <- 0.5
+      mat_allele <- NA
   }
   
   # Two possibilities for maternal allele if sire_geno
@@ -48,7 +48,7 @@ mat_allele <- function(geno, sire_geno, missing = '-') {
     if (geno == 2)
       mat_allele <- 1
     if (geno == missing)
-      mat_allele <- 0.5
+      mat_allele <- NA
   }
   
   # If sire_geno is unknown, we return 'expected' mat_allele
