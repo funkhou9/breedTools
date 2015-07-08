@@ -27,6 +27,8 @@ QPsolve_par <- function(id, Y, X, ped,
     sire_id <- ped[ped[, 1] == id, "Sire"]
     
     if (sire_id %in% colnames(Y)) {
+      
+      print(TRUE)
     
       # Get genotype of target animal and convert missing genotypes
       #	to the appropriate missing character.
