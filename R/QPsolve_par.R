@@ -25,6 +25,7 @@ QPsolve_par <- function(id, Y, X, ped,
   # 	a genotype in Y? (it must)
   if (id %in% ped[, 1]) {
     sire_id <- ped[ped[, 1] == id, "Sire"]
+    print(sire_id)
     
     if (sire_id %in% colnames(Y)) {
       
