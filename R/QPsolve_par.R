@@ -21,15 +21,14 @@ QPsolve_par <- function(id, Y, X, ped,
     stop("Can't recognize pedigree format. Requires 'Sire' and 'Dam' columns")
   }
   
+  return(colnames(Y))
+  
   # Does test animal have a sire in ped and does the sire have
   # 	a genotype in Y? (it must)
   if (id %in% ped[, 1]) {
     sire_id <- ped[ped[, 1] == id, "Sire"]
-    print(sire_id)
     
     if (sire_id %in% colnames(Y)) {
-      
-      print(TRUE)
     
       # Get genotype of target animal and convert missing genotypes
       #	to the appropriate missing character.
