@@ -18,8 +18,10 @@ has_sib <- function(id, ped) {
   if (id %in% ped[, 1]) {
     sire_id <- ped[ped[, 1] == id, "Sire"]
     dam_id <- ped[ped[, 1] == id, "Dam"]
-  }
-
+  } else
+    return (FALSE)
+    
+  
   # Get sib lengths
   sib_from_sire <- ped[ped[, 2] == sire_id, 1]
   sib_from_dam <- ped[ped[, 3] == dam_id, 1]
