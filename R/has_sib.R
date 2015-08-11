@@ -1,7 +1,5 @@
-#' Detect if each ID has a full-sib or half-sib in the pedigree, as specified
+#' Detect if ID has a full-sib or half-sib in the pedigree, as specified
 #' 
-#' Genotyping data can also be provided to know whether
-#'  the sib has genotyping data available
 #'  
 #' @param id character naming ID of interest
 #' @param ped data.frame consisting of pedigree information

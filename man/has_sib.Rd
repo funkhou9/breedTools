@@ -2,7 +2,7 @@
 % Please edit documentation in R/has_sib.R
 \name{has_sib}
 \alias{has_sib}
-\title{Detect if each ID has a full-sib or half-sib in the pedigree, as specified}
+\title{Detect if ID has a full-sib or half-sib in the pedigree, as specified}
 \usage{
 has_sib(id, ped)
 }
@@ -16,7 +16,6 @@ with columns {ID, Sire, Dam} in that order}
 boolean. TRUE if animal has a sib of specified sib_type
 }
 \description{
-Genotyping data can also be provided to know whether
- the sib has genotyping data available
+Detect if ID has a full-sib or half-sib in the pedigree, as specified
 }
 
