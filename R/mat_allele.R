@@ -2,9 +2,9 @@
 # genotype of progeny and sire for a single locus.
 
 # @param geno character {0, 1, 2} dosage of allele B
-#		for target animal for each SNP
+#		for target animal for a single SNP
 # @param sire_geno character {0, 1, 2} dosage of allele B
-#		for sire of target animal for each SNP
+#		for sire of target animal for a single SNP
 # @param missing character used to represent missing values
 # @return character {0, 0.5, 1, "?", NA} representing maternally
 #		inherited allele. "?" indicates maternal inconsistancy.
