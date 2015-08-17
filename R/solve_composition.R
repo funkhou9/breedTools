@@ -39,7 +39,6 @@ solve_composition <- function(Y,
   if (!is.null(ped)) {
     mat_results <- lapply(colnames(Y), QPsolve_par, Y, X, ped, mia = mia)
     mat_results_tab <- do.call(rbind, mat_results)
-    
     return (mat_results_tab)
     
   # Else if groups supplied - perform regular genomic computation

@@ -44,8 +44,14 @@ QPsolve_par <- function(id, Y, X, ped,
       #	with mapply(mat_allele,)
       mat_hap <- mapply(mat_allele, geno, sire_geno)
       
-      if (mia)
+      # If only maternally inherited alleles are desired, convert
+      #   modified Y to a df[1, ] with name equal to supplied id
+      if (mia) {
+        mat_hap <- t(as.data.frame(mat_hap))
+        rownames(mat_hap) <- id
+        
         return (mat_hap)
+      }
       
       # Remove non-numerics from maternal haplotype
       # ("?") and convert to numeric. 
