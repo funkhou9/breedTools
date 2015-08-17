@@ -4,7 +4,7 @@
 \alias{solve_composition}
 \title{solve_composition}
 \usage{
-solve_composition(Y, X, names, ped = NULL, groups = NULL)
+solve_composition(Y, X, names, ped = NULL, groups = NULL, mia = FALSE)
 }
 \arguments{
 \item{Y}{numeric matrix of genotypes (rows) from all animals (columns) in population
@@ -20,6 +20,9 @@ that they appear in X.}
 
 \item{groups}{list of IDs catagoriezed by breed/population. If specified, output will be a list
 of results categorized by breed/population.}
+
+\item{mia}{logical. Only applies if ped argument is supplied. If true, returns a data.frame
+containing the inferred maternally inherited allele for each locus for each animal.}
 }
 \value{
 A data.frame or list of data.frames (if groups is !NULL) with breed/ancestry compostion

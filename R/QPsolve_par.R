@@ -9,12 +9,15 @@
 # @param ped data.frame of pedigree info for animal Y
 # @param p numeric indicating number of breeds represented in X
 # @param names character names of breeds
+# @param mia logical. If true, rather than returning breed compsosition estimates, return
+#   inferred maternally inherited alleles for each locus.
 # @return data.frame of breed composition estimates
 # @import quadprog
 # @export
 QPsolve_par <- function(id, Y, X, ped,
                         p = 4,
-                        names = c("Duroc", "Hampshire", "Landrace", "Yorkshire")) {
+                        names = c("Duroc", "Hampshire", "Landrace", "Yorkshire"),
+                        mia = FALSE) {
   
   # Check for proper pedigree format
   if (!all(c("Sire", "Dam") %in% names(ped))) {
@@ -40,6 +43,9 @@ QPsolve_par <- function(id, Y, X, ped,
       # Perform calculation of maternally inherited haplotype
       #	with mapply(mat_allele,)
       mat_hap <- mapply(mat_allele, geno, sire_geno)
+      
+      if (mia)
+        return (mat_hap)
       
       # Remove non-numerics from maternal haplotype
       # ("?") and convert to numeric. 
