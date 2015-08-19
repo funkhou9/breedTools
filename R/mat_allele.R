@@ -10,7 +10,9 @@
 #		inherited allele. "?" indicates maternal inconsistancy.
 #		0.5 indicates a maternally inherited allele of either 0 or 1.
 #   NA if the progeny genotype is missing.
-mat_allele <- function(geno, sire_geno, missing = '-') {
+mat_allele <- function(geno,
+                       sire_geno,
+                       missing = '-') {
   
   # Two possibilities for maternal allele if sire_geno
   #	dosage is 0
@@ -64,6 +66,7 @@ mat_allele <- function(geno, sire_geno, missing = '-') {
     if (geno == missing)
       mat_allele <- NA
   }
+  
   
   return (mat_allele)
 }
