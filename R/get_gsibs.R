@@ -29,5 +29,5 @@ get_gsibs <- function(id, ped) {
   sib_dams <- ped[ped[, 2] %in% g_dam_proj, 1]
   
   # Obtain the 'grand sibs' (including id)
-  c(sib_sires, sib_dams)
+  unique(c(sib_sires, sib_dams))
 }

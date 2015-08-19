@@ -24,5 +24,5 @@ get_sibs <- function(id, ped) {
   sibs_from_dam <- ped[ped[, 3] == dam_id, 1]
   
   # Obtain sibs! (including id)
-  c(sibs_from_sire, sibs_from_dam)
+  unqiue(c(sibs_from_sire, sibs_from_dam))
 }
