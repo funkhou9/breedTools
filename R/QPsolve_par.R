@@ -41,7 +41,7 @@ QPsolve_par <- function(id, Y, X, ped,
       sire_geno[is.na(sire_geno)] <- '-'
       
       # Perform calculation of maternally inherited haplotype
-      #	with mapply(mat_allele,)
+      #	for each id genotype with mapply()
       mat_hap <- mapply(mat_allele, geno, sire_geno)
       
       # If only maternally inherited alleles are desired, convert
