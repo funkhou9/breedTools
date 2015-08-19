@@ -2,6 +2,8 @@
 
 export(allele_freq)
 export(dist_plot)
+export(get_gsibs)
+export(get_sibs)
 export(has_gsib)
 export(has_progeny)
 export(has_sib)

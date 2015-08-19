@@ -5,7 +5,7 @@
 #'  with columns {ID, Sire, Dam} in that order
 #' @return character vector of sibling IDs
 #' @export
-has_gsib <- function(id, ped) {
+get_gsibs <- function(id, ped) {
   
   # Check for proper pedigree format
   if (!all(c("Sire", "Dam") %in% names(ped)))
