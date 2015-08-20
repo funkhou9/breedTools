@@ -4,13 +4,16 @@
 \alias{get_sibs}
 \title{Obtain siblings of id, if any}
 \usage{
-get_sibs(id, ped)
+get_sibs(id, ped, gsib = TRUE)
 }
 \arguments{
 \item{id}{character naming ID of interest}
 
 \item{ped}{data.frame consisting of pedigree information
 with columns {ID, Sire, Dam} in that order}
+
+\item{gsib}{logical. If true, finds siblings related by parents
+and grand parents}
 }
 \value{
 character vector of sibling IDs
