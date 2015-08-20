@@ -17,7 +17,8 @@
 QPsolve_par <- function(id, Y, X, ped,
                         p = 4,
                         names = c("Duroc", "Hampshire", "Landrace", "Yorkshire"),
-                        mia = FALSE) {
+                        mia = FALSE,
+                        sire = FALSE) {
   
   # Check for proper pedigree format
   if (!all(c("Sire", "Dam") %in% names(ped))) {
@@ -38,6 +39,14 @@ QPsolve_par <- function(id, Y, X, ped,
       
       # Get sire genotype and convert missing characters
       sire_geno <- Y[, colnames(Y) == sire_id]
+      
+      if (sire) {
+        sire_geno <- t(as.data.frame(sire_geno))
+        rownames(sire_geno) <- id
+        
+        return (sire_geno)
+      }
+      
       sire_geno[is.na(sire_geno)] <- '-'
       
       # Perform calculation of maternally inherited haplotype

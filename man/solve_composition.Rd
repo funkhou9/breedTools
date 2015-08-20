@@ -4,7 +4,8 @@
 \alias{solve_composition}
 \title{solve_composition}
 \usage{
-solve_composition(Y, X, names, ped = NULL, groups = NULL, mia = FALSE)
+solve_composition(Y, X, names, ped = NULL, groups = NULL, mia = FALSE,
+  sire = FALSE)
 }
 \arguments{
 \item{Y}{numeric matrix of genotypes (rows) from all animals (columns) in population
@@ -22,7 +23,11 @@ that they appear in X.}
 of results categorized by breed/population.}
 
 \item{mia}{logical. Only applies if ped argument is supplied. If true, returns a data.frame
-containing the inferred maternally inherited allele for each locus for each animal.}
+containing the inferred maternally inherited allele for each locus for each animal instead
+of breed composition results.}
+
+\item{sire}{logical. Only applies if ped argument is supplied. If true, returns a data.frame
+containing sire genotypes for each locus for each animal instead of breed composition results.}
 }
 \value{
 A data.frame or list of data.frames (if groups is !NULL) with breed/ancestry compostion

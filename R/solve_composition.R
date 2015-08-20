@@ -13,7 +13,10 @@
 #' @param groups list of IDs catagoriezed by breed/population. If specified, output will be a list
 #'  of results categorized by breed/population.
 #' @param mia logical. Only applies if ped argument is supplied. If true, returns a data.frame
-#'  containing the inferred maternally inherited allele for each locus for each animal.
+#'  containing the inferred maternally inherited allele for each locus for each animal instead
+#'  of breed composition results.
+#' @param sire logical. Only applies if ped argument is supplied. If true, returns a data.frame
+#'  containing sire genotypes for each locus for each animal instead of breed composition results.
 #' @return A data.frame or list of data.frames (if groups is !NULL) with breed/ancestry compostion
 #'  results
 #' @import quadprog
@@ -23,7 +26,8 @@ solve_composition <- function(Y,
                               names,
                               ped = NULL,
                               groups = NULL,
-                              mia = FALSE) {
+                              mia = FALSE,
+                              sire = FALSE) {
   
   # At the moment can only have ped OR groups. They are not currently compatable
   #   although they should be
@@ -37,7 +41,14 @@ solve_composition <- function(Y,
   # If ped is supplied, use QPsolve_par to compute genomic composition using
   #   only animals who have genotyped parents (by incorporating Sire genotype).
   if (!is.null(ped)) {
-    mat_results <- lapply(colnames(Y), QPsolve_par, Y, X, ped, mia = mia)
+    mat_results <- lapply(colnames(Y),
+                          QPsolve_par,
+                          Y,
+                          X,
+                          ped,
+                          mia = mia,
+                          sire = sire)
+    
     mat_results_tab <- do.call(rbind, mat_results)
     return (mat_results_tab)
     
