@@ -11,6 +11,8 @@
 # @param names character names of breeds
 # @param mia logical. If true, rather than returning breed compsosition estimates, return
 #   inferred maternally inherited alleles for each locus.
+# @param sire logical. If true, provides sire genotypes rather than breed composition results.
+# @param dam logical. If true, provides dam genotypes rather than breed composition results.
 # @return data.frame of breed composition estimates
 # @import quadprog
 # @export
@@ -18,16 +20,36 @@ QPsolve_par <- function(id, Y, X, ped,
                         p = 4,
                         names = c("Duroc", "Hampshire", "Landrace", "Yorkshire"),
                         mia = FALSE,
-                        sire = FALSE) {
+                        sire = FALSE,
+                        dam = FALSE) {
   
   # Check for proper pedigree format
   if (!all(c("Sire", "Dam") %in% names(ped))) {
     stop("Can't recognize pedigree format. Requires 'Sire' and 'Dam' columns")
   }
   
+
   # Does test animal have a sire in ped and does the sire have
   # 	a genotype in Y? (it must)
   if (id %in% ped[, 1]) {
+    
+    # If dam genotypes are requested, obtain and return those
+    if (dam) {
+      dam_id <- ped[ped[, 1] == id, "Dam"]
+      
+      if (dam_id %in% colnames(Y)) {
+        dam_geno <- Y[, colnames(Y) == dam_id]
+        
+        dam_geno <- t(as.data.frame(dam_geno))
+        rownames(dam_geno) <- id
+        
+        return (dam_geno)
+      }
+    }
+    
+    
+    
+    # Assuming dam geno isn't requested, proceed with using sire genotype
     sire_id <- ped[ped[, 1] == id, "Sire"]
     
     if (sire_id %in% colnames(Y)) {
@@ -40,6 +62,7 @@ QPsolve_par <- function(id, Y, X, ped,
       # Get sire genotype and convert missing characters
       sire_geno <- Y[, colnames(Y) == sire_id]
       
+      # If sire genotype is requested, return that istead of proceeding
       if (sire) {
         sire_geno <- t(as.data.frame(sire_geno))
         rownames(sire_geno) <- id

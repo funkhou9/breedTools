@@ -5,7 +5,7 @@
 \title{solve_composition}
 \usage{
 solve_composition(Y, X, names, ped = NULL, groups = NULL, mia = FALSE,
-  sire = FALSE)
+  sire = FALSE, dam = FALSE)
 }
 \arguments{
 \item{Y}{numeric matrix of genotypes (rows) from all animals (columns) in population

@@ -17,6 +17,8 @@
 #'  of breed composition results.
 #' @param sire logical. Only applies if ped argument is supplied. If true, returns a data.frame
 #'  containing sire genotypes for each locus for each animal instead of breed composition results.
+#' @param dam logical. Only applies if ped argument is supplied. If true, returns a data.frame
+#'  containing dam genotypes for each locus for each animal instead of breed composition results.
 #' @return A data.frame or list of data.frames (if groups is !NULL) with breed/ancestry compostion
 #'  results
 #' @import quadprog
@@ -27,7 +29,8 @@ solve_composition <- function(Y,
                               ped = NULL,
                               groups = NULL,
                               mia = FALSE,
-                              sire = FALSE) {
+                              sire = FALSE,
+                              dam = FALSE) {
   
   # At the moment can only have ped OR groups. They are not currently compatable
   #   although they should be
@@ -47,7 +50,8 @@ solve_composition <- function(Y,
                           X,
                           ped,
                           mia = mia,
-                          sire = sire)
+                          sire = sire,
+                          dam = dam)
     
     mat_results_tab <- do.call(rbind, mat_results)
     return (mat_results_tab)
