@@ -31,11 +31,16 @@ get_sibs <- function(id, ped, gsib = TRUE) {
   sibs_from_sire <- ped[ped[, 2] == sire_id, 1]
   sibs_from_dam <- ped[ped[, 3] == dam_id, 1]
   
+  # Get siblings from grandparents
   if (gsib) {
     g_sire_proj <- ped[ped[, 2] == g_sire_id, 1]
     g_dam_proj <- ped[ped[, 3] == g_dam_id, 1]
-    gsibs_from_sire <- ped[ped[, 2] %in% g_sire_proj, 1]
-    gsibs_from_dam <- ped[ped[, 2] %in% g_dam_proj, 1]    
+    
+    # Combine "grand siblings"
+    g_proj <- c(g_sire_proj, g_dam_proj)
+    
+    gsibs_from_sire <- ped[ped[, 2] %in% g_proj, 1]
+    gsibs_from_dam <- ped[ped[, 3] %in% g_proj, 1]
   }
 
   # Obtain sibs! (including id)
