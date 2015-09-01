@@ -28,6 +28,9 @@ of breed composition results.}
 
 \item{sire}{logical. Only applies if ped argument is supplied. If true, returns a data.frame
 containing sire genotypes for each locus for each animal instead of breed composition results.}
+
+\item{dam}{logical. Only applies if ped argument is supplied. If true, returns a data.frame
+containing dam genotypes for each locus for each animal instead of breed composition results.}
 }
 \value{
 A data.frame or list of data.frames (if groups is !NULL) with breed/ancestry compostion

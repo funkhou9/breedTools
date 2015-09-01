@@ -19,9 +19,12 @@ get_sibs <- function(id, ped, gsib = TRUE) {
     sire_id <- ped[ped[, 1] == id, "Sire"]
     dam_id <- ped[ped[, 1] == id, "Dam"]
     
+      
     if (gsib) {
-      g_sire_id <- ped[ped[, 1] == sire_id, "Sire"]
-      g_dam_id <- ped[ped[, 1] == sire_id, "Dam"]
+      g_sire_1 <- ped[ped[, 1] == sire_id, "Sire"]
+      g_sire_2 <- ped[ped[, 1] == dam_id, "Sire"]
+      g_dam_1 <- ped[ped[, 1] == sire_id, "Dam"]
+      g_dam_2 <- ped[ped[, 1] == dam_id, "Dam"]
     }
     
   } else
@@ -33,11 +36,16 @@ get_sibs <- function(id, ped, gsib = TRUE) {
   
   # Get siblings from grandparents
   if (gsib) {
-    g_sire_proj <- ped[ped[, 2] == g_sire_id, 1]
-    g_dam_proj <- ped[ped[, 3] == g_dam_id, 1]
+    g_sire_proj <- unique(c(ped[ped[, 2] == g_sire_1, 1],
+                            ped[ped[, 2] == g_sire_2, 1]))
+    
+    g_dam_proj <- unique(c(ped[ped[, 3] == g_dam_1, 1],
+                           ped[ped[, 3] == g_dam_2, 1]))
+                    
     
     # Combine "grand siblings"
-    g_proj <- c(g_sire_proj, g_dam_proj)
+    g_proj <- unique(c(g_sire_proj, g_dam_proj))
+    
     
     gsibs_from_sire <- ped[ped[, 2] %in% g_proj, 1]
     gsibs_from_dam <- ped[ped[, 3] %in% g_proj, 1]
