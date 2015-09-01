@@ -42,6 +42,7 @@ get_sibs <- function(id, ped, gsib = TRUE) {
     gsibs_from_sire <- ped[ped[, 2] %in% g_proj, 1]
     gsibs_from_dam <- ped[ped[, 3] %in% g_proj, 1]
   }
+  
 
   # Obtain sibs! (including id)
   if (gsib)
