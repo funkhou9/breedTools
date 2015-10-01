@@ -7,8 +7,6 @@
 #'  coded as dosage of allele B {0, 1, 2}
 #' @param X numeric matrix of allele frequencies from reference animals. Frequencies are
 #'  relative to allele B.
-#' @param names character vector of names for each breed/ancestral population in the order
-#'  that they appear in X.
 #' @param ped data.frame giving pedigree information. Must be formatted "ID", "Sire", "Dam"
 #' @param groups list of IDs catagoriezed by breed/population. If specified, output will be a list
 #'  of results categorized by breed/population.
@@ -25,7 +23,6 @@
 #' @export
 solve_composition <- function(Y,
                               X,
-                              names,
                               ped = NULL,
                               groups = NULL,
                               mia = FALSE,

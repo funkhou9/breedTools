@@ -8,12 +8,17 @@
 # @return data.frame of breed composition estimates
 # @import quadprog
 # @export
-QPsolve <- function(Y, X, p = 4, names = c("Duroc", "Hampshire", "Landrace", "Yorkshire")) {
+QPsolve <- function(Y, X) {
   
   # Remove NAs from Y and remove corresponding
   #   SNPs from X. Ensure Y is numeric
   Ymod <- Y[!is.na(Y)]
   Xmod <- X[names(Ymod), ]
+  
+  # Determine properties from X matrix - the number of parameters (breeds) p
+  #   and the names of those parameters.
+  p <- ncol(X)
+  names <- colnames(X)
   
   # perfom steps needed to solve OLS by framing
   # as a QP problem

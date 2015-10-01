@@ -4,7 +4,7 @@
 \alias{solve_composition}
 \title{solve_composition}
 \usage{
-solve_composition(Y, X, names, ped = NULL, groups = NULL, mia = FALSE,
+solve_composition(Y, X, ped = NULL, groups = NULL, mia = FALSE,
   sire = FALSE, dam = FALSE)
 }
 \arguments{
@@ -13,9 +13,6 @@ coded as dosage of allele B {0, 1, 2}}
 
 \item{X}{numeric matrix of allele frequencies from reference animals. Frequencies are
 relative to allele B.}
-
-\item{names}{character vector of names for each breed/ancestral population in the order
-that they appear in X.}
 
 \item{ped}{data.frame giving pedigree information. Must be formatted "ID", "Sire", "Dam"}
 
