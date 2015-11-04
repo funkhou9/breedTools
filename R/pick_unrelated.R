@@ -39,6 +39,6 @@ pick_unrelated <- function(ids, ped, coeff = 0.0625) {
     nochoose <- c(nochoose, rel)
   }
   
-  return (list("A_mat" = A_red, "IDs" = pick))
+  return (list("A_mat" = A_red[pick, pick], "IDs" = pick))
 }
 
