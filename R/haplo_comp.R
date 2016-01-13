@@ -11,7 +11,7 @@
 #'  If false, return breed probability matrix (posterior probabilities for each breed,
 #'  rows, to have particular genotype, columns)
 #' @return Either haplotype frequencies or breed probability matrix
-# ---------------------------------------------
+#' @export
 haplo_comp <-  function(x, y = NULL, haplotypes = FALSE) {
   
   # Check inputs. Must be a data.frame or matrix
