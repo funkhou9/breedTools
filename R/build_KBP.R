@@ -82,8 +82,6 @@ build_KBP <- function(geno,
                                   stringsAsFactors = FALSE)
   }
   
-  return(breed_list)
-  
   # Merge haplotypes
   hap_data <- breed_list[[1]]
   for (i in 2:length(breed_list)) {
