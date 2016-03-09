@@ -51,13 +51,13 @@ build_KBP <- function(geno,
   for (i in 1:length(groups)) {
     
     # Get SNP names
-    snps <- read.table(paste0(names(groups)[i], "_geno_fimpute.txt"),
+    snps <- read.table(paste0(names(groups)[i], "_fimpute_run/hap_library.txt"),
                        nrow = 1) %>%
               unlist() %>%
                 as.character()
     
     # Read haplotype file as a single string
-    breed_list[[i]] <- read.table(paste0(names(groups)[i], "_geno_fimpute.txt"),
+    breed_list[[i]] <- read.table(paste0(names(groups)[i], "_fimpute_run/hap_library.txt"),
                                   skip = 1, 
                                   colClasses = "character")
     
