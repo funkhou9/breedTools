@@ -10,7 +10,6 @@
 #'  when those are present.
 #' @return probabilities of being particular breeds based on stretch of genotype information provided
 #'  in geno argument.
-#' @export
 breed_lookup <- function(geno, bmat, white_freq = FALSE) {
   
   # Create regex expression for geno
