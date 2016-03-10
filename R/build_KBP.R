@@ -16,6 +16,9 @@
 #' Names of list should be the names of the groups, with each element containing IDs.
 #' @param haplotypes logical indicating whether build_KBP should return haplotype frequencies (TRUE)
 #' or breed probabilities (FALSE).
+#' @param keep_fimpute logical if TRUE, output files generated from snpTools::fimpute_run are kept. 
+#' By default, build_KBP will use fimpute_run to build haplotypes, but as soon as haplotypes are 
+#' extracted, fimpute output will be deleted so not to clutter hard drive space.
 #' @import snpTools
 #' @import magrittr
 #' @export
@@ -26,7 +29,8 @@ build_KBP <- function(geno,
                       ped = NULL,
                       path = NULL,
                       groups = NULL,
-                      haplotypes = FALSE) {
+                      haplotypes = FALSE,
+                      keep_fimpute = FALSE) {
   
   if (is.null(groups))
     stop("build_KBP() is designed to be used with a groups arugment, corresponding to a list of reference breeds")
@@ -41,12 +45,14 @@ build_KBP <- function(geno,
                 "MARC0034580")
   
   # Run FImpute to obtain reference haplotypes, but only along chromosome 8
-  snpTools::fimpute_run(geno = geno,
-                        map = map,
-                        ped = ped,
-                        path = path,
-                        groups = groups,
-                        exclude_chr = "1 2 3 4 5 6 7 9 10 11 12 13 14 15 16 17 18 19 20 21")
+  invisible({
+    snpTools::fimpute_run(geno = geno,
+                          map = map,
+                          ped = ped,
+                          path = path,
+                          groups = groups,
+                          exclude_chr = "1 2 3 4 5 6 7 9 10 11 12 13 14 15 16 17 18 19 20 21")
+  })
   message("Obtaining reference haplotypes from FImpute")
   
   # Obtain haplotypes and haplotype frequencies from each reference breed
@@ -85,6 +91,9 @@ build_KBP <- function(geno,
                                      "frequency" = hap_freq_list[[i]],
                                      stringsAsFactors = FALSE)
   }
+  
+  if (!keep_fimpute)
+    system('rm -rf *fimpute_run')
   
   if (haplotypes) {
     # Merge haplotype frequencies for optional return of reference haplotype information

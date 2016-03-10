@@ -5,7 +5,7 @@
 \title{Build reference panel for KBP}
 \usage{
 build_KBP(geno, map, ped = NULL, path = NULL, groups = NULL,
-  haplotypes = FALSE)
+  haplotypes = FALSE, keep_fimpute = FALSE)
 }
 \arguments{
 \item{geno}{a matrix or data.frame with genotypes of reference animals. SNPs in columns and
@@ -24,6 +24,10 @@ Names of list should be the names of the groups, with each element containing ID
 
 \item{haplotypes}{logical indicating whether build_KBP should return haplotype frequencies (TRUE)
 or breed probabilities (FALSE).}
+
+\item{keep_fimpute}{logical if TRUE, output files generated from snpTools::fimpute_run are kept.
+By default, build_KBP will use fimpute_run to build haplotypes, but as soon as haplotypes are
+extracted, fimpute output will be deleted so not to clutter hard drive space.}
 }
 \value{
 a data.frame containing breed probabilities for each genotype made possible from the
