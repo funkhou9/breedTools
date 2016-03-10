@@ -113,9 +113,9 @@ build_KBP <- function(geno,
     for (j in (i + 1):length(hap_list)) {
       hap_cross_freq_ij <- haplo_comp(hap_list[[i]], hap_list[[j]])
       between_breed <- c(between_breed, 
-                         data.frame("G" = names(hap_cross_freq_ij),
-                                    "pG" = hap_cross_freq_ij,
-                                    stringsAsFactors = FALSE))
+                         list(data.frame("G" = names(hap_cross_freq_ij),
+                                         "pG" = hap_cross_freq_ij,
+                                         stringsAsFactors = FALSE)))
       n_between <- n_between + 1
     }
   }
