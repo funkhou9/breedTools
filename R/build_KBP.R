@@ -81,8 +81,8 @@ build_KBP <- function(geno,
     
     # Compute haplotype frequencies and tabulate results
     hap_freq_list[[i]] <- haplo_comp(hap_list[[i]], haplotypes = TRUE)
-    hap_freq_list[[i]] <- data.frame("haplotypes" = names(hap_list[[i]]),
-                                     "frequency" = hap_list[[i]],
+    hap_freq_list[[i]] <- data.frame("haplotypes" = names(hap_freq_list[[i]]),
+                                     "frequency" = hap_freq_list[[i]],
                                      stringsAsFactors = FALSE)
   }
   
