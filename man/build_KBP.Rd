@@ -4,7 +4,8 @@
 \alias{build_KBP}
 \title{Build reference panel for KBP}
 \usage{
-build_KBP(geno, map, ped = NULL, path = NULL, groups = NULL)
+build_KBP(geno, map, ped = NULL, path = NULL, groups = NULL,
+  haplotypes = FALSE)
 }
 \arguments{
 \item{geno}{a matrix or data.frame with genotypes of reference animals. SNPs in columns and
@@ -20,6 +21,9 @@ resides along PATH.}
 
 \item{groups}{a list of character vectors with the names of IDs meant to be processed as groups.
 Names of list should be the names of the groups, with each element containing IDs.}
+
+\item{haplotypes}{logical indicating whether build_KBP should return haplotype frequencies (TRUE)
+or breed probabilities (FALSE).}
 }
 \value{
 a data.frame containing breed probabilities for each genotype made possible from the
@@ -28,7 +32,7 @@ reference animal haplotypes
 \description{
 KBP (Kit-based breed probabilities) utilize a reference panel of purebred animals' genotypes.
 The genotypes are phased, and the resulting haplotypes are used to construct haplotype frequences,
-genotype frequencies given breed $P(g|b)$, and finally breed probabilities given a genotype
-$P(b | g)$. This function is used to construct a reference panel of breed probabilities.
+genotype frequencies given breed \eqn{P(g | b)}, and finally breed probabilities given a genotype
+\eqn{P(b | g)}. This function is used to construct a reference panel of breed probabilities.
 }
 
