@@ -122,6 +122,7 @@ build_KBP <- function(geno,
   
   # Combine probabilities and join by "G" (genotype)
   g_mat_list <- c(within_breed, between_breed)
+  return(g_mat_list)
   g_data <- g_mat_list[[1]]
   for (i in 2:length(g_mat_list)) {
     g_data <- merge(g_data, g_mat_list[[i]], by = "G", all = TRUE)
