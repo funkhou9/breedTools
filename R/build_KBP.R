@@ -109,14 +109,20 @@ build_KBP <- function(geno,
   # Compute "between breed" genotype probabilities (with counter to count the number of combinations)
   between_breed <- list()
   n_between <- 0
+  between_names <- c()
   for (i in 1:(length(hap_list) - 1)) {
     for (j in (i + 1):length(hap_list)) {
       hap_cross_freq_ij <- haplo_comp(hap_list[[i]], hap_list[[j]])
-      between_breed <- c(between_breed, 
-                         list(data.frame("G" = names(hap_cross_freq_ij),
-                                         "pG" = hap_cross_freq_ij,
-                                         stringsAsFactors = FALSE)))
+      between_breed <- 
+        c(between_breed, 
+          list(data.frame("G" = names(hap_cross_freq_ij),
+                          "pG" = hap_cross_freq_ij,
+                          stringsAsFactors = FALSE)))
       n_between <- n_between + 1
+      between_names <- c(between_names,
+                         paste0(names(groups)[i],
+                                '/',
+                                names(groups[j])))
     }
   }
   
@@ -131,10 +137,13 @@ build_KBP <- function(geno,
   g_data[is.na(g_data)] <- 0
   
   # Adjust g_data so that genotypes (first column) are in rownames
-  # g_data should be a data.frame with (length(groups) + n_between) columns, corresponding to the 
-  # number of "within breed" and "between breed" genotype probabilities
+  # g_data should be a data.frame with (1 + length(groups) + n_between) columns, corresponding to the 
+  # genotypes + number of "within breed" and "between breed" combinations
   rownames(g_data) <- g_data[, 1]
-  g_data <- g_data[, 2 : (length(groups) + n_between)]
+  g_data <- g_data[, 2 : (1 + length(groups) + n_between)]
+  
+  # Set column names from groups input
+  colnames(g_data) <- c(names(groups), between_names)
   
   # Calculate b_mat - breed probabilities
   b_data <- t(apply(g_data, 1, function(x) x / sum(x)))
