@@ -1,5 +1,6 @@
-#' Function to calculate haplotype frequencies and use
-#'	them to estimate genotype probabilities
+#' Compute haplotype frequencies and genotype probabilities
+#'
+#' Calculates haplotype frequencies and uses them to estimate genotype probabilities
 #' 
 #' @param x A data.frame that contains haplotypes for individuals
 #' (rows) of a population, for a number of SNPs (columns). Haplotypes coded

@@ -1,4 +1,4 @@
-#' sim_composition
+#' Simulate hybrid animals for breed composition
 #' 
 #' Use synthetic offspring to test the accuracy of breed/ancestry calculations among test population
 #' 

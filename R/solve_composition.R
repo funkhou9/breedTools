@@ -1,7 +1,7 @@
-#' solve_composition
+#' Compute genome-wide breed composition
 #' 
 #' Computes genome-wide breed/ancestry composition using quadratic programming on a
-#'  batch of animals.
+#' batch of animals.
 #' 
 #' @param Y numeric matrix of genotypes (rows) from all animals (columns) in population
 #'  coded as dosage of allele B {0, 1, 2}

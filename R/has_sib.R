@@ -1,6 +1,5 @@
 #' Detect if ID has a full-sib or half-sib in the pedigree, as specified
 #' 
-#'  
 #' @param id character naming ID of interest
 #' @param ped data.frame consisting of pedigree information
 #'  with columns {ID, Sire, Dam} in that order

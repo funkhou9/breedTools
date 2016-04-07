@@ -1,12 +1,10 @@
 #' dist_plot
 #' 
 #' Plotting function to inspect the distribution of results from a genome-wide
-#'  scan of breed composition
-#'  
-#'  Generates a hybrid plot - plotting the joint distribution (scatterplot) of breed composition
-#'    results of breed specified and R squared values. Marginal distributions (histograms)
-#'    on the axes.
-#'  
+#' scan of breed composition. Plots the joint distribution (scatterplot) of breed composition
+#' results of breed specified and R squared values. Marginal distributions (histograms)
+#' on the axes.
+#'
 #'  @param dat data.frame of genome-wide breed composition results
 #'  @param breed character naming the desired breed composition result in dat to plot
 #'  @param xlab character giving label for x-axis

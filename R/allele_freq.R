@@ -4,7 +4,6 @@
 #'  with individuals in rows (named) and SNPs in columns (named)
 #' @param populations list of named populations. Each population has a vector of IDs
 #'  that belong to the population. Allele frequencies will be derived from all animals
-#'   
 #' @return data.frame consisting of allele_frequencies for populations (columns) for
 #'  each SNP (rows)
 #' @export

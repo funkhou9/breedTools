@@ -1,4 +1,4 @@
-#' sim_plot
+#' Inspect the results of sim_composition()
 #' 
 #' Generates a scatterplot to inspect the results of repeatedly simulated 
 #' QP_SimCross output.
