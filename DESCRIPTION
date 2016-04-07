@@ -2,11 +2,15 @@ Package: breedTools
 Title: Tools for use in breed composition prediction using genomic data
 Version: 0.1
 Authors@R: person("Scott", "Funkhouser", , "sfunkhouser@gmail.com", role = c("aut", "cre"))
-Description: Can compute breed proportions and breed probabilities of a test animal using a
-  set of known reference animals.
-Depends: R (>= 3.1.0)
+Description: Can compute breed proportions and breed probabilities of a test
+    animal using a set of known reference animals.
+Depends:
+    R (>= 3.1.0)
 License: file LICENSE
 LazyData: true
 Imports:
-    quadprog (>= 1.5-5)
-Suggests: testthat
+    quadprog,
+    kinship2
+Suggests:
+    testthat
+RoxygenNote: 5.0.1

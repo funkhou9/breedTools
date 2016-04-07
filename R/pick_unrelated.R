@@ -1,16 +1,17 @@
+#' Pick unrelated ids from a pedigree
+#'
 #' Given a list of ids to choose from and a pedigree, returns a subset of the list that are as
-#'  distantly related as possible.
+#' distantly related as possible.
 #' 
 #' @param ids vector of ids to choose from
 #' @param ped data.frame containing pedigree information. Should contain columns "ID" "Sire" and "Dam"
-#'  in that order.
+#' in that order.
 #' @param coeff numeric giving maximum coefficient of relatedness among chosen animals.
-#' @import kinship2
 #' @export
 pick_unrelated <- function(ids, ped, coeff = 0.0625) {
   
   # Create A matrix (pedigree relationship matrix)
-  A <- kinship(ped[, 1], ped[, 2], ped[, 3])
+  A <- kinship2::kinship(ped[, 1], ped[, 2], ped[, 3])
   A_red <- A[rownames(A) %in% ids, colnames(A) %in% ids]
   
   # Sort matrix according to which animals have the least relationships among IDs
