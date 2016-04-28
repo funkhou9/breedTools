@@ -31,7 +31,7 @@ solve_KBP <- function(geno, b_mat, white = TRUE) {
   
   # Subset and recode missing genotypes
   kit_geno <- geno[, kit_snps]
-  kit_geno <- kit_geno[is.na(kit_geno)] <- "?"
+  kit_geno[is.na(kit_geno)] <- "?"
   
   # Concatenate 7 SNP genotypes into a single string
   kit_geno <- apply(kit_geno, 1, paste, collapse = '')
