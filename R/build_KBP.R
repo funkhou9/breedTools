@@ -9,7 +9,10 @@
 #' individuals in rows. Genotypes must be coded as dosage of allele 'b' {0, 1, 2}. 
 #' @param map a data.frame containing SNP map information for each SNP present in geno
 #' @param ped a data.frame pedigree providing family information for each individual in geno. The first
-#' column of the pedigree is for ID, second is for sire/father ID, and third is for dam/mother ID.
+#' column of the pedigree is for ID, second is for sire/father ID, third is for dam/mother ID, fourth
+#' is sex of ID {"M" or "F"}. If ids in geno are not present in pedigree, they will be added to the
+#' end with missing parent information and a "M" sex. Correct sex information should only be required
+#' when imputing/phasing the sex chromosomes.
 #' @param path a character represting the path to the FImpute binary. If omitted, assumes FImpute binary
 #' resides along PATH.
 #' @param groups a list of character vectors with the names of IDs meant to be processed as groups. 
