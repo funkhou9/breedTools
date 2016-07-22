@@ -22,6 +22,8 @@
 #' @param keep_fimpute logical if TRUE, output files generated from snpTools::fimpute_run are kept. 
 #' By default, build_KBP will use fimpute_run to build haplotypes, but as soon as haplotypes are 
 #' extracted, fimpute output will be deleted so not to clutter hard drive space.
+#' @param parent logical if TRUE, breed probabilities or haplotypes will be returned only from
+#' parents and not from progeny
 #' @import snpTools
 #' @import magrittr
 #' @export
@@ -33,7 +35,8 @@ build_KBP <- function(geno,
                       path = NULL,
                       groups = NULL,
                       haplotypes = FALSE,
-                      keep_fimpute = FALSE) {
+                      keep_fimpute = FALSE,
+                      parent = FALSE) {
   
   if (is.null(groups))
     stop("build_KBP() is designed to be used with a groups arugment, corresponding to a list of reference breeds")
@@ -54,7 +57,8 @@ build_KBP <- function(geno,
                           ped = ped,
                           path = path,
                           groups = groups,
-                          exclude_chr = "1 2 3 4 5 6 7 9 10 11 12 13 14 15 16 17 18 19 20 21")
+                          exclude_chr = "1 2 3 4 5 6 7 9 10 11 12 13 14 15 16 17 18 19 20 21",
+                          parent = parent)
   })
   message("Obtaining reference haplotypes from FImpute")
   
