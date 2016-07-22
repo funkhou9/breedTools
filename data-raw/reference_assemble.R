@@ -86,21 +86,21 @@ save(GWBC_ref_B, file = "data/GWBC_ref_B.RData")
 # Merge additional animals with trios. Animals in this dataset must not be duplicates or have
 # duplicate IDs
 trio_marc_sire_geno <- 
-  snpTools::merge_geno(durocMarcGenoDose,
+  snpTools::merge_geno(gp.Trio$geno,
+                       yorkshireMarcGenoDose,
                        landraceMarcGenoDose,
                        hampshireMarcGenoDose,
-                       yorkshireMarcGenoDose,
-                       sires_ref_geno,
-                       gp.Trio$geno)
+                       durocMarcGenoDose,
+                       sires_ref_geno)
 
 trio_marc_sire_geno <- 
   trio_marc_sire_geno[!duplicated(rownames(trio_marc_sire_geno)), ]
 
 trio_marc_sire_names <- 
-  list("Duroc" = c(DurocIDs, rownames(durocMarcGenoDose)),
-       "Hampshire" = c(HampshireIDs, rownames(hampshireMarcGenoDose)),
-       "Landrace" = c(LandraceIDs, rownames(landraceMarcGenoDose)),
-       "Yorkshire" = c(YorkshireIDs, rownames(yorkshireMarcGenoDose),
+  list("Duroc" = c(as.character(DurocIDs), rownames(durocMarcGenoDose)),
+       "Hampshire" = c(as.character(HampshireIDs), rownames(hampshireMarcGenoDose)),
+       "Landrace" = c(as.character(LandraceIDs), rownames(landraceMarcGenoDose)),
+       "Yorkshire" = c(as.character(YorkshireIDs), rownames(yorkshireMarcGenoDose),
                        rownames(sires_ref_geno)))
 
 KBP_ref_B <- breedTools::build_KBP(geno = trio_marc_sire_geno, 
@@ -110,4 +110,4 @@ KBP_ref_B <- breedTools::build_KBP(geno = trio_marc_sire_geno,
                                    groups = trio_marc_sire_names,
                                    parent = FALSE)
 
-save(KBP_ref_B, file = "KBP_ref_B.RData")
+save(KBP_ref_B, file = "data/KBP_ref_B.RData")
