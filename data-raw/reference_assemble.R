@@ -16,10 +16,10 @@ load("data-raw/trio_IDs.RData")
 # Subset parent genotypes, filter and calculate allele frequencies with snpTools
 trio_geno_par <- gp.Trio$geno[rownames(gp.Trio$geno) %in% parIDs, ]
 trio_geno_par_lowD <- trio_geno_par[, colnames(trio_geno_par) %in% rownames(org_LowD_chip)]
-trio_par_ids <- list("Duroc" = DurocIDs[DurocIDs %in% parIDs],
-                     "Hampshire" = HampshireIDs[HampshireIDs %in% parIDs],
-                     "Landrace" = LandraceIDs[LandraceIDs %in% parIDs],
-                     "Yorkshire" = YorkshireIDs[YorkshireIDs %in% parIDs])
+trio_par_ids <- list("Duroc" = as.character(DurocIDs)[as.character(DurocIDs) %in% parIDs],
+                     "Hampshire" = as.character(HampshireIDs)[as.character(HampshireIDs) %in% parIDs],
+                     "Landrace" = as.character(LandraceIDs)[as.character(LandraceIDs) %in% parIDs],
+                     "Yorkshire" = as.character(YorkshireIDs)[as.character(YorkshireIDs) %in% parIDs])
   
 GWBC_ref_A <- snpTools::filter_geno(trio_geno_par_lowD) %>%
                 breedTools::allele_freq(trio_par_ids)
@@ -33,10 +33,10 @@ trio_ped <- read.table("data-raw/trio_ped_fimpute.txt", header = TRUE)
 # Assemble trio genotypes, map, and list of ids for build_KBP
 trio_geno <- gp.Trio$geno
 map_60K <- gp.Trio$map
-trio_ids <- list("Duroc" = DurocIDs,
-                 "Hampshire" = HampshireIDs,
-                 "Landrace" = LandraceIDs,
-                 "Yorkshire" = YorkshireIDs)
+trio_ids <- list("Duroc" = as.character(DurocIDs),
+                 "Hampshire" = as.character(HampshireIDs),
+                 "Landrace" = as.character(LandraceIDs),
+                 "Yorkshire" = as.character(YorkshireIDs))
 
 KBP_ref_A <- breedTools::build_KBP(geno = trio_geno, 
                                    map = map_60K, 
@@ -70,10 +70,14 @@ trioPar_marc_sire_geno_lowD <-
 
 # Assemble names of animals in reference panel of each breed
 trioPar_marc_sire_names <- 
-  list("Duroc" = c(DurocIDs[DurocIDs %in% parIDs], rownames(durocMarcGenoDose)),
-       "Hampshire" = c(HampshireIDs[HampshireIDs %in% parIDs], rownames(hampshireMarcGenoDose)),
-       "Landrace" = c(LandraceIDs[LandraceIDs %in% parIDs], rownames(landraceMarcGenoDose)),
-       "Yorkshire" = c(YorkshireIDs[YorkshireIDs %in% parIDs], rownames(yorkshireMarcGenoDose),
+  list("Duroc" = c(as.character(DurocIDs)[as.character(DurocIDs) %in% parIDs], 
+                   rownames(durocMarcGenoDose)),
+       "Hampshire" = c(as.character(HampshireIDs)[as.character(HampshireIDs) %in% parIDs],
+                       rownames(hampshireMarcGenoDose)),
+       "Landrace" = c(as.character(LandraceIDs)[as.character(LandraceIDs) %in% parIDs],
+                      rownames(landraceMarcGenoDose)),
+       "Yorkshire" = c(as.character(YorkshireIDs)[as.character(YorkshireIDs) %in% parIDs],
+                       rownames(yorkshireMarcGenoDose),
                        rownames(sires_ref_geno)))
 
 # Filter and calculate allele frequencies
