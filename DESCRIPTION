@@ -10,7 +10,8 @@ License: file LICENSE
 LazyData: true
 Imports:
     quadprog,
-    kinship2
+    kinship2,
+    snpTools
 Suggests:
     testthat
-RoxygenNote: 5.0.1
+RoxygenNote: 5.0.1.9000
