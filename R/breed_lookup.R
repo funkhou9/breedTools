@@ -31,12 +31,12 @@ breed_lookup <- function(geno, bmat, white_freq = FALSE) {
   # If breed "white" breed composition is desired
   #	instead of yorkshire or landrace
   if (white_freq) {
-    white <- sum(hits_avg["landrace"], hits_avg["yorkshire"], hits_avg["landrace/yorkshire"])
-    duroc_white <- sum(hits_avg["duroc/landrace"], hits_avg["duroc/yorkshire"])
-    hampshire_white <- sum(hits_avg["hampshire/landrace"], hits_avg["hampshire/yorkshire"])
+    white <- sum(hits_avg["Landrace"], hits_avg["Yorkshire"], hits_avg["Landrace/Yorkshire"])
+    duroc_white <- sum(hits_avg["Duroc/Landrace"], hits_avg["Duroc/Yorkshire"])
+    hampshire_white <- sum(hits_avg["Hampshire/Landrace"], hits_avg["Hampshire/Yorkshire"])
     
-    hits_avg <- c(hits_avg[1:2], "white" = white, hits_avg[5], "duroc/white" = duroc_white,
-                  "hampshire/white" = hampshire_white)
+    hits_avg <- c(hits_avg[1:2], "White" = white, hits_avg[5], "Duroc/White" = duroc_white,
+                  "Hampshire/White" = hampshire_white)
   }
   
   return(hits_avg)
