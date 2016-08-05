@@ -15,15 +15,6 @@
 #' @export
 solve_KBP <- function(geno, b_mat, white = TRUE) {
   
-  # Figure out how to share this data with build_KBP, using an environment?
-  kit_snps <- c("ALGA0047798",
-                "ALGA0047807",
-                "ALGA0047809",
-                "ALGA0102731",
-                "ALGA0115258",
-                "ALGA0123881",
-                "MARC0034580")
-  
   if (!any(kit_snps %in% colnames(geno)))
     stop("Cannot detect KIT SNPs in provided genotypes. \n
          Check to make sure geno has SNP colnames, and that all SNPs are present: \n

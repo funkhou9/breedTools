@@ -41,15 +41,6 @@ build_KBP <- function(geno,
   if (is.null(groups))
     stop("build_KBP() is designed to be used with a groups arugment, corresponding to a list of reference breeds")
   
-  # SNPs to be extracted from haplotypes
-  kit_snps <- c("ALGA0047798",
-                "ALGA0047807",
-                "ALGA0047809",
-                "ALGA0102731",
-                "ALGA0115258",
-                "ALGA0123881",
-                "MARC0034580")
-  
   # Run FImpute to obtain reference haplotypes, but only along chromosome 8
   invisible({
     snpTools::fimpute_run(geno = geno,
