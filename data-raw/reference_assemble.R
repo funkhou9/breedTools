@@ -90,7 +90,7 @@ save(GWBC_ref_B, file = "data/GWBC_ref_B.RData")
 # Merge additional animals with trios. Animals in this dataset must not be duplicates or have
 # duplicate IDs
 trio_marc_sire_geno <- 
-  snpTools::merge_geno(gp.Trio$geno,
+  snpTools::merge_geno(trio_geno_par,
                        yorkshireMarcGenoDose,
                        landraceMarcGenoDose,
                        hampshireMarcGenoDose,
@@ -101,10 +101,14 @@ trio_marc_sire_geno <-
   trio_marc_sire_geno[!duplicated(rownames(trio_marc_sire_geno)), ]
 
 trio_marc_sire_names <- 
-  list("Duroc" = c(as.character(DurocIDs), rownames(durocMarcGenoDose)),
-       "Hampshire" = c(as.character(HampshireIDs), rownames(hampshireMarcGenoDose)),
-       "Landrace" = c(as.character(LandraceIDs), rownames(landraceMarcGenoDose)),
-       "Yorkshire" = c(as.character(YorkshireIDs), rownames(yorkshireMarcGenoDose),
+  list("Duroc" = c(as.character(DurocIDs)[as.character(DurocIDs) %in% parIDs], 
+                   rownames(durocMarcGenoDose)),
+       "Hampshire" = c(as.character(HampshireIDs)[as.character(HampshireIDs) %in% parIDs], 
+                       rownames(hampshireMarcGenoDose)),
+       "Landrace" = c(as.character(LandraceIDs)[as.character(LandraceIDs) %in% parIDs], 
+                      rownames(landraceMarcGenoDose)),
+       "Yorkshire" = c(as.character(YorkshireIDs)[as.character(YorkshireIDs) %in% parIDs], 
+                       rownames(yorkshireMarcGenoDose),
                        rownames(sires_ref_geno)))
 
 KBP_ref_B <- breedTools::build_KBP(geno = trio_marc_sire_geno, 
@@ -112,6 +116,7 @@ KBP_ref_B <- breedTools::build_KBP(geno = trio_marc_sire_geno,
                                    ped = trio_ped,
                                    path = "~/Programs/bin/",
                                    groups = trio_marc_sire_names,
-                                   parent = FALSE)
+                                   parent = FALSE,
+                                   reference = TRUE)
 
 save(KBP_ref_B, file = "data/KBP_ref_B.RData")

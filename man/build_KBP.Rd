@@ -5,7 +5,8 @@
 \title{Build reference panel for KBP}
 \usage{
 build_KBP(geno, map, ped = NULL, path = NULL, groups = NULL,
-  haplotypes = FALSE, keep_fimpute = FALSE, parent = FALSE)
+  haplotypes = FALSE, keep_fimpute = FALSE, parent = FALSE,
+  reference = FALSE)
 }
 \arguments{
 \item{geno}{a matrix or data.frame with genotypes of reference animals. SNPs in columns and 
@@ -33,7 +34,10 @@ By default, build_KBP will use fimpute_run to build haplotypes, but as soon as h
 extracted, fimpute output will be deleted so not to clutter hard drive space.}
 
 \item{parent}{logical if TRUE, breed probabilities or haplotypes will be returned only from
-parents and not from progeny}
+parents and not from progeny,}
+
+\item{reference}{logical use TRUE if you want `groups` to be used to specify the reference animals
+used by FImpute. Not compatable with parent TRUE.}
 }
 \value{
 a data.frame containing breed probabilities for each genotype made possible from the
