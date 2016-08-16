@@ -68,6 +68,32 @@ trioPar_marc_sire_geno <-
 trioPar_marc_sire_geno_lowD <- 
   trioPar_marc_sire_geno[, colnames(trioPar_marc_sire_geno) %in% rownames(org_LowD_chip)]
 
+# Check if animals have duplicate genotypes (there are duplicate IDs). We don't want to double count
+# any animals for the allele frequency calculation
+dups <- rownames(trioPar_marc_sire_geno_lowD)[duplicated(rownames(trioPar_marc_sire_geno_lowD))]
+sapply(dups, function(x) {
+  dup_geno <- trioPar_marc_sire_geno_lowD[rownames(trioPar_marc_sire_geno_lowD) %in% x, ]
+  diffs <- dup_geno[1, ] - dup_geno[2, ]
+  sum(abs(diffs), na.rm = TRUE)
+})
+# 471827005      8400      8670     40040   2484769   2485411 308563005 308567002 252222006 390769001 
+# 1         0         1         3         0         0         0         0         1         0 
+# 445958005 285546006 285725004 287528006 437397015 449710003 452583002 461433004 467888002 468964007 
+# 2         2         0         0         0        11         1         1         0         1 
+# 468985008 469345001 470569011 470915001      8670 
+# 6         0        10         0         1 
+
+
+# How do these compare to two animals chosen at random?
+rand_names <- sample(rownames(trioPar_marc_sire_geno_lowD), 2)
+rand_geno <- trioPar_marc_sire_geno_lowD[rownames(trioPar_marc_sire_geno_lowD) %in% rand_names, ]
+sum(abs(rand_geno[1, ] - rand_geno[2, ]), na.rm = TRUE)
+# [1] 5518 (will be slightly different each time)
+
+# Remove duplicate IDs from genotypes (the same will be needed to generate KBP_ref_B)
+trioPar_marc_sire_geno_lowD <- 
+  trioPar_marc_sire_geno_lowD[!duplicated(rownames(trioPar_marc_sire_geno_lowD)), ]
+
 # Assemble names of animals in reference panel of each breed
 trioPar_marc_sire_names <- 
   list("Duroc" = c(as.character(DurocIDs)[as.character(DurocIDs) %in% parIDs], 
@@ -79,6 +105,13 @@ trioPar_marc_sire_names <-
        "Yorkshire" = c(as.character(YorkshireIDs)[as.character(YorkshireIDs) %in% parIDs],
                        rownames(yorkshireMarcGenoDose),
                        rownames(sires_ref_geno)))
+
+# Ensure no duplicate names in `trioPar_marc_sire_names`. There should be a total of 1179 names
+# after filtering.
+trioPar_marc_sire_names <- 
+  lapply(trioPar_marc_sire_names, function(x) {
+    x[!duplicated(x)]
+})
 
 # Filter and calculate allele frequencies
 GWBC_ref_B <- snpTools::filter_geno(trioPar_marc_sire_geno_lowD) %>%
