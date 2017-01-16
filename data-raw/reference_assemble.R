@@ -1,9 +1,17 @@
-# Methods to build reference panels for GWBC and KBP. Note that data loaded into this script is not
-# truely "raw" but was copied from scripts from breed_compos
+# Methods to build reference panels for GWBC and KBP, which are loaded upon breedTools attachment
+# using data(). A summary of "raw" data objects in data-raw/ that were used to generate reference
+# panels:
+
+# LowD_chip_maps.RData - a SNP chip map for the GGP-LD.
+# trio_gpData_fix.RData - genotypes from trio animals.
+# trio_IDs.RData - a list of animals in trio_gpData_fix that are parents.
+# trio_ped_fimpute.txt - a pedigree file for trio animals.
+# additional_ref_geno.RData - genotypes from additional animals beyond the Trio set
 
 # First reference panel for GWBC and KBP (GWBC_ref_A and KBP_ref_A, respectively) ------------------
 # GWBC_ref_A used parents of original Trio study
 # KBP_ref_A used all animals from the original Trio study
+# Both GWBC_ref_A and KBP_ref_A were used to generate the TAS manuscript by Funkhouser et. al
 
 # GWBC_ref_A ---------------------------------------------------------------------------------------
 # Load 8K SNP chip map
