@@ -15,4 +15,6 @@ Imports:
     magrittr
 Suggests:
     testthat
-RoxygenNote: 5.0.1.9000
+Remotes:
+    funkhou9/snpTools
+RoxygenNote: 6.0.1
