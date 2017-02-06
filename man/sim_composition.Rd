@@ -22,4 +22,3 @@ progeny test. If null, two parents from sim1 will be chosen}
 \description{
 Use synthetic offspring to test the accuracy of breed/ancestry calculations among test population
 }
-

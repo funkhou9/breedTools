@@ -19,4 +19,3 @@ data.frame of subsetted pedigree
 \description{
 Constructs pedigree information for select individuals
 }
-

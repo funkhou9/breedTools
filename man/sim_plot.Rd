@@ -20,4 +20,3 @@ NONE
 Generates a scatterplot to inspect the results of repeatedly simulated 
 QP_SimCross output.
 }
-

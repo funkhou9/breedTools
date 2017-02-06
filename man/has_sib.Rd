@@ -18,4 +18,3 @@ boolean. TRUE if animal has a sib of specified sib_type
 \description{
 Detect if ID has a full-sib or half-sib in the pedigree, as specified
 }
-

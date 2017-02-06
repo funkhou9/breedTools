@@ -20,4 +20,3 @@ data.frame consisting of allele_frequencies for populations (columns) for
 \description{
 Computes allele frequencies for specified populations given SNP array data
 }
-

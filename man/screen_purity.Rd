@@ -24,4 +24,3 @@ done together to assess the breed composition of a test animal and the probabili
 purebred in the KIT region of the genome, resposible for influencing color segregation patters.
 This function will assemble all GWBC and KBP results for any number of genotyped animals.
 }
-

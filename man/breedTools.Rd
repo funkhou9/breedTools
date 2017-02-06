@@ -19,4 +19,3 @@ There are a few ways in which breedTools can infer breed composition. These are:
          phased, limited regions of the genome.
 }
 }
-

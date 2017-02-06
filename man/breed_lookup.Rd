@@ -23,4 +23,3 @@ Breed probability matrices can be constructed with the help of haplo_comp(), the
 genotypes for a region in rows and probabilities that that genotype belongs to a breed / breed hybrid
 in the columns.
 }
-

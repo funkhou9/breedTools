@@ -49,4 +49,3 @@ The genotypes are phased, and the resulting haplotypes are used to construct hap
 genotype frequencies given breed \eqn{P(g | b)}, and finally breed probabilities given a genotype
 \eqn{P(b | g)}. This function is used to construct a reference panel of breed probabilities.
 }
-

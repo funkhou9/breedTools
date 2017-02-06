@@ -37,4 +37,3 @@ A data.frame or list of data.frames (if groups is !NULL) with breed/ancestry com
 Computes genome-wide breed/ancestry composition using quadratic programming on a
 batch of animals.
 }
-

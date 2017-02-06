@@ -18,4 +18,3 @@ character vector of sibling IDs
 \description{
 Obtain relatives of id that share a grand mother or grand father, if any relatives
 }
-

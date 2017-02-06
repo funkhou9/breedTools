@@ -25,4 +25,3 @@ Given a breed probability matrix (provided by \code{build_KBP()}), and a set of 
 genotypes, use this function to derive breed probabilities for each test animal genotype based on
 7 SNPs around the KIT gene.
 }
-

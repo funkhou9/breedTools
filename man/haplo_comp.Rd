@@ -25,4 +25,3 @@ Either haplotype frequencies or breed probability matrix
 \description{
 Calculates haplotype frequencies and uses them to estimate genotype probabilities
 }
-

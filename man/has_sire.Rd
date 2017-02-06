@@ -23,4 +23,3 @@ boolean. TRUE if animal has a Father/Sire in the
 Genotyping data can also be provided to know whether
  an available sire has genotyping data available
 }
-

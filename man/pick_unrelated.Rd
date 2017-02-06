@@ -18,4 +18,3 @@ in that order.}
 Given a list of ids to choose from and a pedigree, returns a subset of the list that are as
 distantly related as possible.
 }
-

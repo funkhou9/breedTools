@@ -23,4 +23,3 @@ integer indicating how many progeny the id of interest
 Genotyping data can also be provided to know whether
  an available sire has genotyping data available
 }
-

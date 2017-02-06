@@ -18,4 +18,3 @@ boolean. TRUE if animal has a great sibling
 \description{
 'great sibling' would mean siblings related by their grandparents
 }
-
