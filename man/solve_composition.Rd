@@ -8,10 +8,10 @@ solve_composition(Y, X, ped = NULL, groups = NULL, mia = FALSE,
   sire = FALSE, dam = FALSE)
 }
 \arguments{
-\item{Y}{numeric matrix of genotypes (rows) from all animals (columns) in population
+\item{Y}{numeric matrix of genotypes (columns) from all animals (rows) in population
 coded as dosage of allele B {0, 1, 2}}
 
-\item{X}{numeric matrix of allele frequencies from reference animals. Frequencies are
+\item{X}{numeric matrix of allele frequencies (rows) from each reference panel (columns). Frequencies are
 relative to allele B.}
 
 \item{ped}{data.frame giving pedigree information. Must be formatted "ID", "Sire", "Dam"}

@@ -3,9 +3,9 @@
 #' Computes genome-wide breed/ancestry composition using quadratic programming on a
 #' batch of animals.
 #' 
-#' @param Y numeric matrix of genotypes (rows) from all animals (columns) in population
+#' @param Y numeric matrix of genotypes (columns) from all animals (rows) in population
 #'  coded as dosage of allele B {0, 1, 2}
-#' @param X numeric matrix of allele frequencies from reference animals. Frequencies are
+#' @param X numeric matrix of allele frequencies (rows) from each reference panel (columns). Frequencies are
 #'  relative to allele B.
 #' @param ped data.frame giving pedigree information. Must be formatted "ID", "Sire", "Dam"
 #' @param groups list of IDs catagoriezed by breed/population. If specified, output will be a list
