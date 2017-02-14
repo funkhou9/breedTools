@@ -7,6 +7,8 @@
 # trio_IDs.RData - a list of animals in trio_gpData_fix that are parents.
 # trio_ped_fimpute.txt - a pedigree file for trio animals.
 # additional_ref_geno.RData - genotypes from additional animals beyond the Trio set
+#   used in GWBC_ref_B and KBP_ref_B
+# additional_landrace_geno.RData - 
 
 # First reference panel for GWBC and KBP (GWBC_ref_A and KBP_ref_A, respectively) ------------------
 # GWBC_ref_A used parents of original Trio study
@@ -161,3 +163,35 @@ KBP_ref_B <- breedTools::build_KBP(geno = trio_marc_sire_geno,
                                    reference = TRUE)
 
 save(KBP_ref_B, file = "data/KBP_ref_B.RData")
+
+# Third reference panels (GWBC_ref_C and KBP_ref_C) -----------------------------------------------
+# This panel includes all animals in GWBC_ref_B and KBP_ref_B, and adds 44 Landrace animals.
+# These were selected to better cover the diversity of the Landrace pedigree.
+
+# GWBC_ref_C
+updated_land_geno <- snpTools::merge_geno(trio_marc_sire_geno,
+                                          additional_land_geno)
+
+updated_land_names <- trio_marc_sire_names
+updated_land_names$Landrace <- c(updated_land_names$Landrace, rownames(additional_land_geno))
+
+GWBC_ref_C <- snpTools::filter_geno(updated_land_geno) %>%
+                breedTools::allele_freq(updated_land_names)
+
+save(GWBC_ref_C, file = "data/GWBC_ref_C.RData")
+
+# KBP_ref_C
+# Add full Trio genotypes for family phasing of Trio parent haplotypes
+updated_land_geno_wTrios <- snpTools::merge_geno(updated_land_geno, gp.Trio$geno)
+updated_land_geno_wTrios <- 
+  updated_land_geno_wTrios[!duplicated(rownames(updated_land_geno_wTrios)), ]
+
+KBP_ref_C <- breedTools::build_KBP(geno = updated_land_geno_wTrios, 
+                                   map = map_60K, 
+                                   ped = trio_ped,
+                                   path = "~/Programs/bin/",
+                                   groups = updated_land_names,
+                                   parent = FALSE,
+                                   reference = TRUE)
+
+save(KBP_ref_C, file = "data/KBP_ref_C.RData")
