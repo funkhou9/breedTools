@@ -8,7 +8,8 @@
 # trio_ped_fimpute.txt - a pedigree file for trio animals.
 # additional_ref_geno.RData - genotypes from additional animals beyond the Trio set
 #   used in GWBC_ref_B and KBP_ref_B
-# additional_landrace_geno.RData - 
+# additional_landrace_geno.RData - Landrace genotypes (dated 2017-02-08) intended for reference
+#   panel
 
 # First reference panel for GWBC and KBP (GWBC_ref_A and KBP_ref_A, respectively) ------------------
 # GWBC_ref_A used parents of original Trio study
@@ -17,11 +18,11 @@
 
 # GWBC_ref_A ---------------------------------------------------------------------------------------
 # Load 8K SNP chip map
-load("data-raw/LowD_chip_maps.RData")
+load("data-raw-PRIVATE/LowD_chip_maps.RData")
 
 # Load trio genotypes (contained in gp.Trio) and IDs of parents
-load("data-raw/trio_gpData_fix.RData")
-load("data-raw/trio_IDs.RData")
+load("data-raw-PRIVATE/trio_gpData_fix.RData")
+load("data-raw-PRIVATE/trio_IDs.RData")
 
 # Subset parent genotypes, filter and calculate allele frequencies with snpTools
 trio_geno_par <- gp.Trio$geno[rownames(gp.Trio$geno) %in% parIDs, ]
@@ -38,7 +39,7 @@ save(GWBC_ref_A, file = "data/GWBC_ref_A.RData")
 
 # KBP_ref_A ----------------------------------------------------------------------------------------
 # Load pedigree information for trios
-trio_ped <- read.table("data-raw/trio_ped_fimpute.txt", header = TRUE)
+trio_ped <- read.table("data-raw-PRIVATE/trio_ped_fimpute.txt", header = TRUE)
 
 # Assemble trio genotypes, map, and list of ids for build_KBP
 trio_geno <- gp.Trio$geno
@@ -48,14 +49,16 @@ trio_ids <- list("Duroc" = as.character(DurocIDs),
                  "Landrace" = as.character(LandraceIDs),
                  "Yorkshire" = as.character(YorkshireIDs))
 
-KBP_ref_A <- breedTools::build_KBP(geno = trio_geno, 
-                                   map = map_60K, 
-                                   ped = trio_ped,
-                                   path = "~/Programs/bin/",
-                                   groups = trio_ids,
-                                   parent = TRUE)
-
+REF_A <- breedTools::build_KBP(geno = trio_geno, 
+                               map = map_60K, 
+                               ped = trio_ped,
+                               path = "~/Programs/bin/",
+                               groups = trio_ids,
+                               parent = TRUE)
+KBP_ref_A <- REF_A$KBP
+HAP_A <- REF_A$haplotype_freq
 save(KBP_ref_A, file = "data/KBP_ref_A.RData")
+save(HAP_A, file = "data/HAP_A.RData")
 
 # Second reference panel for GWBC and KBP (GWBC_ref_B and KBP_ref_B, respectively) -----------------
 # GWBC_ref_B used parents of original Trio study, plus all marc animals and a subset of Yorkshire 
@@ -64,7 +67,7 @@ save(KBP_ref_A, file = "data/KBP_ref_A.RData")
 
 # GWBC_ref_B ---------------------------------------------------------------------------------------
 # Load additional animals for reference panel
-load("data-raw/additional_ref_geno.RData")
+load("data-raw-PRIVATE/additional_ref_geno.RData")
 
 # Merge additional animals with trio parents and trim to 8K density
 trioPar_marc_sire_geno <- 
@@ -130,49 +133,37 @@ GWBC_ref_B <- snpTools::filter_geno(trioPar_marc_sire_geno_lowD) %>%
 save(GWBC_ref_B, file = "data/GWBC_ref_B.RData")
 
 # KBP_ref_B ----------------------------------------------------------------------------------------
-# Merge additional animals with trios. Animals in this dataset must not be duplicates or have
-# duplicate IDs
+# Merge existing genotypes with full Trio set so that FImpute can use progeny information to phase
+# parental genotypes.
 trio_marc_sire_geno <- 
-  snpTools::merge_geno(trio_geno_par,
-                       yorkshireMarcGenoDose,
-                       landraceMarcGenoDose,
-                       hampshireMarcGenoDose,
-                       durocMarcGenoDose,
-                       sires_ref_geno)
+  snpTools::merge_geno(trioPar_marc_sire_geno,
+                       gp.Trio$geno)
 
 trio_marc_sire_geno <- 
   trio_marc_sire_geno[!duplicated(rownames(trio_marc_sire_geno)), ]
 
-trio_marc_sire_names <- 
-  list("Duroc" = c(as.character(DurocIDs)[as.character(DurocIDs) %in% parIDs], 
-                   rownames(durocMarcGenoDose)),
-       "Hampshire" = c(as.character(HampshireIDs)[as.character(HampshireIDs) %in% parIDs], 
-                       rownames(hampshireMarcGenoDose)),
-       "Landrace" = c(as.character(LandraceIDs)[as.character(LandraceIDs) %in% parIDs], 
-                      rownames(landraceMarcGenoDose)),
-       "Yorkshire" = c(as.character(YorkshireIDs)[as.character(YorkshireIDs) %in% parIDs], 
-                       rownames(yorkshireMarcGenoDose),
-                       rownames(sires_ref_geno)))
-
-KBP_ref_B <- breedTools::build_KBP(geno = trio_marc_sire_geno, 
-                                   map = map_60K, 
-                                   ped = trio_ped,
-                                   path = "~/Programs/bin/",
-                                   groups = trio_marc_sire_names,
-                                   parent = FALSE,
-                                   reference = TRUE)
-
+REF_B <- breedTools::build_KBP(geno = trio_marc_sire_geno, 
+                               map = map_60K, 
+                               ped = trio_ped,
+                               path = "~/Programs/bin/",
+                               groups = trioPar_marc_sire_names,
+                               parent = FALSE,
+                               reference = TRUE)
+KBP_ref_B <- REF_B$KBP
+HAP_B <- REF_B$haplotype_freq
 save(KBP_ref_B, file = "data/KBP_ref_B.RData")
+save(HAP_B, file = "data/HAP_B.RData")
 
 # Third reference panels (GWBC_ref_C and KBP_ref_C) -----------------------------------------------
 # This panel includes all animals in GWBC_ref_B and KBP_ref_B, and adds 44 Landrace animals.
 # These were selected to better cover the diversity of the Landrace pedigree.
 
 # GWBC_ref_C
-updated_land_geno <- snpTools::merge_geno(trio_marc_sire_geno,
+load("data-raw-PRIVATE/additional_land_geno.RData")
+updated_land_geno <- snpTools::merge_geno(trioPar_marc_sire_geno,
                                           additional_land_geno)
 
-updated_land_names <- trio_marc_sire_names
+updated_land_names <- trioPar_marc_sire_names
 updated_land_names$Landrace <- c(updated_land_names$Landrace, rownames(additional_land_geno))
 
 GWBC_ref_C <- snpTools::filter_geno(updated_land_geno) %>%
@@ -186,12 +177,14 @@ updated_land_geno_wTrios <- snpTools::merge_geno(updated_land_geno, gp.Trio$geno
 updated_land_geno_wTrios <- 
   updated_land_geno_wTrios[!duplicated(rownames(updated_land_geno_wTrios)), ]
 
-KBP_ref_C <- breedTools::build_KBP(geno = updated_land_geno_wTrios, 
-                                   map = map_60K, 
-                                   ped = trio_ped,
-                                   path = "~/Programs/bin/",
-                                   groups = updated_land_names,
-                                   parent = FALSE,
-                                   reference = TRUE)
-
+REF_C <- breedTools::build_KBP(geno = updated_land_geno_wTrios, 
+                               map = map_60K, 
+                               ped = trio_ped,
+                               path = "~/Programs/bin/",
+                               groups = updated_land_names,
+                               parent = FALSE,
+                               reference = TRUE)
+KBP_ref_C <- REF_C$KBP
+HAP_C <- REF_C$haplotype_freq
 save(KBP_ref_C, file = "data/KBP_ref_C.RData")
+save(HAP_C, file = "data/HAP_C.RData")
