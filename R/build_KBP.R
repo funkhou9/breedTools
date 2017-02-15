@@ -17,8 +17,6 @@
 #' resides along PATH.
 #' @param groups a list of character vectors with the names of IDs meant to be processed as groups. 
 #' Names of list should be the names of the groups, with each element containing IDs.
-#' @param haplotypes logical indicating whether build_KBP should return haplotype frequencies (TRUE)
-#' or breed probabilities (FALSE).
 #' @param keep_fimpute logical if TRUE, output files generated from snpTools::fimpute_run are kept. 
 #' By default, build_KBP will use fimpute_run to build haplotypes, but as soon as haplotypes are 
 #' extracted, fimpute output will be deleted so not to clutter hard drive space.
@@ -36,7 +34,6 @@ build_KBP <- function(geno,
                       ped = NULL,
                       path = NULL,
                       groups = NULL,
-                      haplotypes = FALSE,
                       keep_fimpute = FALSE,
                       parent = FALSE,
                       reference = FALSE) {
@@ -97,15 +94,15 @@ build_KBP <- function(geno,
   if (!keep_fimpute)
     system('rm -rf *fimpute_run')
   
-  if (haplotypes) {
+  ## if (haplotypes) {
     # Merge haplotype frequencies for optional return of reference haplotype information
     hap_data <- hap_freq_list[[1]]
     for (i in 2:length(hap_freq_list)) {
       hap_data <- merge(hap_data, hap_freq_list[[i]], by = "haplotypes", all = TRUE)
     }
     colnames(hap_data) <- c("Haplotype", names(groups))
-    return(hap_data)  
-  }
+    ## return(hap_data)
+  ## }
   
   
   # Compute "within breed" genotype probabilities
@@ -159,7 +156,8 @@ build_KBP <- function(geno,
   # Calculate b_mat - breed probabilities
   b_data <- t(apply(g_data, 1, function(x) x / sum(x)))
   
-  return(b_data)
+  # Return a list containing haplotype frequencies and resulting breed probabilities
+  return(list("KBP" = b_data, "haplotype_freq" = hap_data))
 }
 
 
