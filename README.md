@@ -1,8 +1,9 @@
 # breedTools
 
-> R package encapsulating methods presented in *Estimation of genome-wide and
-> locus-specific breed composition in pigs* (doi: 10.2527/tas2016.0003)
-> published in Translational Animal Science (TAS).
+> R package encapsulating methods presented in [*Estimation of genome-wide and
+> locus-specific breed composition in pigs*](https://www.animalsciencepublications.org/publications/tas/articles/1/1/tas2016.0003)
+> published in Translational Animal Science (TAS). Note that functions contained
+> in this package have been tested and used on Linux and Mac platforms only.
 
 breedTools can be used to estimate breed composition from 
 DNA microarray data and has been applied to the estimation of pig breed
@@ -55,6 +56,9 @@ chromosome 8.
 for a set of animals.
 
 * `build_KBP()` is used to build a new reference panel for KBP estimation.
+Using this function requires installation of [FImpute](http://www.aps.uoguelph.ca/~msargol/fimpute/).
+Note that the `path` argument is used to specify the location of the FImpute
+binary if FImpute is not on your PATH.
 
 * `allele_freq()` is used to build a new reference panel for GWBC estimation.
 
