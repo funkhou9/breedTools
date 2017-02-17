@@ -2,7 +2,7 @@
 % Please edit documentation in R/build_KBP.R
 \name{build_KBP}
 \alias{build_KBP}
-\title{Build reference panel for KBP}
+\title{Build reference panel for KBP (KIT-based breed probability) calculation}
 \usage{
 build_KBP(geno, map, ped = NULL, path = NULL, groups = NULL,
   keep_fimpute = FALSE, parent = FALSE, reference = FALSE)
@@ -40,8 +40,9 @@ a data.frame containing breed probabilities for each genotype made possible from
 reference animal haplotypes
 }
 \description{
-KBP (Kit-based breed probabilities) utilize a reference panel of purebred animals' genotypes.
+KBP (KIT-based breed probabilities) utilize a reference panel of purebred animals' genotypes.
 The genotypes are phased, and the resulting haplotypes are used to construct haplotype frequences,
 genotype frequencies given breed \eqn{P(g | b)}, and finally breed probabilities given a genotype
-\eqn{P(b | g)}. This function is used to construct a reference panel of breed probabilities.
+\eqn{P(b | g)}. This method is used to construct a reference panel of breed probabilities for which
+one can use to test the probability that an animal is of a certain breed, in the region of KIT.
 }
