@@ -2,6 +2,7 @@
 
 export(allele_freq)
 export(build_KBP)
+export(build_MBP)
 export(get_gsibs)
 export(get_sibs)
 export(haplo_comp)
