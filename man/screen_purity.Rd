@@ -4,16 +4,20 @@
 \alias{screen_purity}
 \title{Calculate both GWBC and KBP for a test animal}
 \usage{
-screen_purity(geno, gwbc_ref, kbp_ref)
+screen_purity(geno, gwbc_ref, kbp_ref, mbp_ref = NULL)
 }
 \arguments{
 \item{geno}{matrix containing genotyping data (dosage of allele B) for animals (in rows) for
 any number of SNPs (in columns)}
 
 \item{gwbc_ref}{data.frame containing allele frequencies for any number of SNPs (in rows) for
-any number of reference populations (in columns)}
+any number of reference populations (in columns). See an example with `data("GWBC_ref_A")`.}
 
-\item{kbp_ref}{data.frame containing genotype probabilities}
+\item{kbp_ref}{data.frame containing genotype probabilities for various multi-locus genotypes
+surrounding the KIT region (the output of build_KBP).}
+
+\item{mbp_ref}{data.frame containing genotype probabilities for various multi-locus genotypes
+surrounding the MC1R region (the output of build_MBP). (OPTIONAL)}
 }
 \value{
 data.frame with various GWBC and KBP values for each animal in geno

@@ -8,11 +8,17 @@
 #' @param geno matrix containing genotyping data (dosage of allele B) for animals (in rows) for
 #' any number of SNPs (in columns)
 #' @param gwbc_ref data.frame containing allele frequencies for any number of SNPs (in rows) for
-#' any number of reference populations (in columns) 
-#' @param kbp_ref data.frame containing genotype probabilities 
+#' any number of reference populations (in columns). See an example with `data("GWBC_ref_A")`.
+#' @param kbp_ref data.frame containing genotype probabilities for various multi-locus genotypes
+#' surrounding the KIT region (the output of build_KBP).
+#' @param mbp_ref data.frame containing genotype probabilities for various multi-locus genotypes
+#' surrounding the MC1R region (the output of build_MBP). (OPTIONAL)
 #' @return data.frame with various GWBC and KBP values for each animal in geno
 #' @export
-screen_purity <- function(geno, gwbc_ref, kbp_ref) {
+screen_purity <- function(geno,
+                          gwbc_ref,
+                          kbp_ref,
+                          mbp_ref = NULL) {
   
   # Solve GWBC
   gwbc_res <- solve_composition(geno, gwbc_ref)
@@ -42,6 +48,30 @@ screen_purity <- function(geno, gwbc_ref, kbp_ref) {
   
   # Fill in which animals were "KIT inconclusive"
   results[inconclusives, 8] <- "yes"
+  
+  # If provided a reference panel for MBP, solve MBP and attach MBP results.
+  # Repeat the process of identifying 'MC1R_inconclusive' results.
+  if (!is.null(mbp_ref)) {
+    mbp_res <- solve_MBP(geno, mbp_ref)
+    results_mbp <- cbind(results,
+                         mbp_res[rownames(kbp_res), c(2, 5, 8, 9)],
+                         "MC1R_inconclusive" = rep("no", nrow(geno)),
+                         stringsAsFactors = FALSE)
+    colnames(results_mbp) <- c(colnames(results),
+                               "MBP_Hampshire",
+                               "MBP_Hampshire_Duroc",
+                               "MBP_Hampshire_Landrace",
+                               "MBP_Hampshire_Yorkshire",
+                               "MC1R_inconclusive")
+    
+    mc1r_geno <- geno[, mc1r_snps]
+    inconclusives <-
+      mc1r_geno[rowSums(is.na(mc1r_geno)) > 0, ] %>%
+      rownames()
+
+    results_mbp[inconclusives, "MC1R_inconclusive"] <- "yes"
+    return(results_mbp)
+  }
   
   return (results)
 }
