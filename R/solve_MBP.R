@@ -14,7 +14,7 @@
 #' by default.
 #' @return a data.frame containing test animals in rows and KBPs in columns
 #' @export
-solve_KBP <- function(geno, b_mat, white = FALSE) {
+solve_MBP <- function(geno, b_mat, white = FALSE) {
   
   solve_bp_generic(snps_ = mc1r_snps,
                    geno_ = geno,
