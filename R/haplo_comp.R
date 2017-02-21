@@ -23,12 +23,16 @@ haplo_comp <-  function(x, y = NULL, haplotypes = FALSE) {
   if (!is.null(y)) {
     if (class(y) != "matrix" & class(y) != "data.frame") {
       stop("y must be a data.frame or matrix")
-    } 
+    }
     
   } else {
     # If y is not supplied, set y and x to be the same
     y <- x
   }
+  
+  # Get the number of SNPs provided
+  nsnps <- ncol(x)
+  
   # Consolidate haplotypes into a single string
   hapx <- apply(x, 1, paste, collapse = '')
   hapy <- apply(y, 1, paste, collapse = '')
@@ -51,8 +55,9 @@ haplo_comp <-  function(x, y = NULL, haplotypes = FALSE) {
   #	haplotypes
   mat <- outer(as.numeric(rownames(G)), as.numeric(colnames(G)), FUN = "+")
   
-  # Leading 0s will be lost unless genotypes are padded with 0s
-  mat <- sprintf('%07d', mat)
+  # Leading 0s will be lost unless genotypes are padded with 0s. Pad with enough
+  # zeros, depending on the length of the haplotypes.
+  mat <- sprintf(paste0('%0', nsnps, 'd'), mat)
   
   # Which genotypes are duplicated?
   dup_geno <- names(table(mat))[table(mat) > 1]
@@ -70,10 +75,10 @@ haplo_comp <-  function(x, y = NULL, haplotypes = FALSE) {
   
   # Apply sum_Gi across dup_geno - a vector of genotypes which
   #	have duplicates
-  dup_geno_sum <- sapply(dup_geno, sum_Gi)
+  dup_geno_sum <- vapply(dup_geno, sum_Gi, FUN.VALUE = numeric(1))
   
   # Append genotypes which only appear once
-  single_geno_sum <- sapply(single_geno, sum_Gi)
+  single_geno_sum <- vapply(single_geno, sum_Gi, FUN.VALUE = numeric(1))
   result <- c(dup_geno_sum, single_geno_sum)
   
   return(result)

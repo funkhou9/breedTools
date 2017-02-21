@@ -16,7 +16,7 @@
 solve_bp_generic <- function(snps_, geno_, b_mat_, white_) {
   
   if (!any(snps_ %in% colnames(geno_)))
-    stop(paste0("Cannot detect KIT SNPs in provided genotypes. \n
+    stop(paste0("Cannot detect SNPs in provided genotypes. \n
                 Check to make sure geno has SNP colnames, and that all SNPs are present: \n",
                 snps_))
   

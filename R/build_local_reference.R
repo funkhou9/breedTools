@@ -75,7 +75,7 @@ build_local_reference <- function(chr,
     # Convert to a vector with snpTools::string_to_vec()
     hap_list[[i]] <- t(apply(hap_list[[i]], 1, snpTools::string_to_vec))
     
-    # Subset KIT SNPs
+    # Subset chosen SNPs
     colnames(hap_list[[i]]) <- snps
     hap_list[[i]] <- hap_list[[i]][, markers]
     
