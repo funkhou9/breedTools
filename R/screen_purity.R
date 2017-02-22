@@ -43,8 +43,7 @@ screen_purity <- function(geno,
   # Find which animals, if any, have an incomplete set of SNPs in the KIT region
   kit_geno <- geno[, kit_snps]
   inconclusives <-
-    kit_geno[rowSums(is.na(kit_geno)) > 0, ] %>%
-    rownames()
+    rownames(kit_geno)[rowSums(is.na(kit_geno)) > 0]
   
   # Fill in which animals were "KIT inconclusive"
   results[inconclusives, 8] <- "yes"
@@ -66,8 +65,7 @@ screen_purity <- function(geno,
     
     mc1r_geno <- geno[, mc1r_snps]
     inconclusives <-
-      mc1r_geno[rowSums(is.na(mc1r_geno)) > 0, ] %>%
-      rownames()
+      rownames(mc1r_geno)[rowSums(is.na(mc1r_geno)) > 0]
 
     results_mbp[inconclusives, "MC1R_inconclusive"] <- "yes"
     return(results_mbp)
