@@ -17,7 +17,8 @@ any number of reference populations (in columns). See an example with `data("GWB
 surrounding the KIT region (the output of build_KBP).}
 
 \item{mbp_ref}{data.frame containing genotype probabilities for various multi-locus genotypes
-surrounding the MC1R region (the output of build_MBP). (OPTIONAL)}
+surrounding the MC1R region (the output of build_MBP). (OPTIONAL) If supplied, it will
+assume Hampshire animals are being evaluated in \code{geno}.}
 }
 \value{
 data.frame with various GWBC and KBP values for each animal in geno
