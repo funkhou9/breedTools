@@ -1,7 +1,7 @@
 # breedTools
 
 > R package encapsulating methods presented in [*Estimation of genome-wide and
-> locus-specific breed composition in pigs*](https://www.animalsciencepublications.org/publications/tas/articles/1/1/tas2016.0003)
+> locus-specific breed composition in pigs*](https://www.animalsciencepublications.org/publications/tas/articles/1/1/36)
 > published in Translational Animal Science (TAS). Note that functions contained
 > in this package have been tested and used on Linux and Mac platforms only.
 
